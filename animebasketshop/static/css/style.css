@@ -336,6 +336,7 @@ ol {
 
 .header__logo a {
 	display: inline-block;
+	color: #fff;
 }
 
 .header__menu {
