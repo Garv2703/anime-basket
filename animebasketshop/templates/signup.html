@@ -98,24 +98,25 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Sign Up</h3>
-                        <form action="#" method="post">
+                        <form action="../" method="post">
+                            {% csrf_token %}
                             <div class="input__item">
-                                <input type="email" placeholder="Email address" required>
+                                {{form.email}}
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="First Name" required>
+                                {{form.first_name}}
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Last Name" required>
+                                {{form.last_name}}
                                 <span class="icon_profile"></span>
                             </div>
                             <div class="input__item">
-                                <input type="password" placeholder="Password" required>
+                                {{form.password}}
                                 <span class="icon_lock"></span>
                             </div>
-                            <button type="submit" class="site-btn">Login Now</button>
+                            <button type="submit" class="site-btn">Register Now</button>
                         </form>
                         <h5>Already have an account? <a href="../login">Log In!</a></h5>
                     </div>
