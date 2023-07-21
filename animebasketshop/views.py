@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from .forms import SignupForm
 
 # Create your views here.
@@ -26,6 +27,9 @@ def home(request):
     return HttpResponse(template.render(context, request))
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
+
     template = loader.get_template('login.html')
     context = {
         'media_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.MEDIA_URL,
@@ -33,6 +37,9 @@ def login(request):
     return HttpResponse(template.render(context, request))
 
 def signup(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('../')
+
     form = SignupForm()
     template = loader.get_template('signup.html')
     context = {
@@ -40,3 +47,7 @@ def signup(request):
         'form': form,
     }
     return HttpResponse(template.render(context, request))
+
+def logout_view(request):
+    logout(request)
+    return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
