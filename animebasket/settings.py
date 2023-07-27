@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = ['animebasketshop.backends.EmailBackend']
+AUTHENTICATION_BACKENDS = ['animebasketshop.backends.EmailBackend', 'django.contrib.auth.backends.ModelBackend']
 
 
 # Internationalization
@@ -113,7 +113,7 @@ AUTHENTICATION_BACKENDS = ['animebasketshop.backends.EmailBackend']
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -129,3 +129,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'auth.User'

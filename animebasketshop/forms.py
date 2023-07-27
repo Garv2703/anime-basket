@@ -9,5 +9,5 @@ class SignupForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email Address'}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username or Email Address'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))

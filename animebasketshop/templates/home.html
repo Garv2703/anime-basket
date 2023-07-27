@@ -58,8 +58,8 @@
                                         <li><a href="./login">Login</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="./blog.html">Our Blog</a></li>
-                                <li><a href="#">Contacts</a></li>
+                                <!-- <li><a href="./blog.html">Our Blog</a></li> -->
+                                <!-- <li><a href="#">Contacts</a></li> -->
                             </ul>
                         </nav>
                     </div>
@@ -68,7 +68,7 @@
                     <div class="header__right">
                         <a href="#" class="search-switch"><span class="icon_search"></span></a>
                         {% if user.is_authenticated %}
-                            <a href="#"><span class="icon_profile"></span></a>
+                            <a href="#" class="account-btn"><span class="icon_profile"></span></a>
                         {% else %}
                             <a href="./login">Login</a>
                         {% endif %}

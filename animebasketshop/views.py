@@ -15,11 +15,13 @@ def home(request):
             if form.is_valid():
                 email = form.cleaned_data['email']
                 password = form.cleaned_data['password']
-                user = authenticate(email=email, password=password)
+                user = authenticate(request, username=email, password=password)
                 if user is not None:
-                    print('hi')
+                    login(request, user)
                 else:
-                    print('hiii')
+                    print('hello')
+            else:
+                print(form.errors)
 
         else:
             form = SignupForm(request.POST)
@@ -32,6 +34,8 @@ def home(request):
                 name = first_name + ' ' + last_name
                 password = form.cleaned_data['password']
                 new_user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
+            else:
+                print(form.errors)
 
     template = loader.get_template('home.html')
     context = {
@@ -39,7 +43,7 @@ def home(request):
     }
     return HttpResponse(template.render(context, request))
 
-def login(request):
+def login_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('../')
 
