@@ -336,7 +336,6 @@ ol {
 
 .header__logo a {
 	display: inline-block;
-	color: #fff;
 }
 
 .header__menu {
@@ -448,7 +447,7 @@ ol {
 
 .hero__items {
 	padding: 250px 0 42px 50px;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 .hero__text {

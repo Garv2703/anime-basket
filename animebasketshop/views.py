@@ -64,6 +64,7 @@ def signup(request):
     template = loader.get_template('signup.html')
     context = {
         'media_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.MEDIA_URL,
+        'base_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'],
         'form': form,
     }
     return HttpResponse(template.render(context, request))
