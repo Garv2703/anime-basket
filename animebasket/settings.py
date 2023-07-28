@@ -18,9 +18,6 @@ BASE_URL = '/'
 LOGIN_URL = '/login/'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
-SITE_ID = 2
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -43,27 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'rest_framework',
     'animebasketshop',
     'database',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
 ]
-
-SOCIALACCOUNT_PROVIDERS = {
-   'google': {
-      'SCOPE': [
-         'profile',
-         'email',
-      ],
-      'AUTH_PARAMS': {
-         'access_type': 'online',
-      }
-   }
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,11 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'animebasketshop.backends.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+AUTHENTICATION_BACKENDS = ['animebasketshop.backends.EmailBackend', 'django.contrib.auth.backends.ModelBackend']
 
 
 # Internationalization
