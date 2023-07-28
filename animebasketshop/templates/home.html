@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load socialaccount %}
 
 {% block title %}
   Anime Basket
@@ -6,6 +7,7 @@
 
 {% block content %}
     <!-- Hero Section Begin -->
+    <a href="{% provider_login_url 'google' %}">Login With Google</a>
     <section class="hero">
         <div class="container">
             <div class="hero__slider owl-carousel">
