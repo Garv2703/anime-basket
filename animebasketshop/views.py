@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from .forms import SignupForm, LoginForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -69,9 +70,7 @@ def signup(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
 def logout_view(request):
-    if not request.user.is_authenticated:
-        # referer = request.META['HTTP_REFERER'].split('/')
-        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     logout(request)
     return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
