@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_URL = '/'
 LOGIN_URL = '/login/'
-LOGOUT_URL = 'logout'
+LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'login'
 MEDIA_ROOT = BASE_DIR / 'media'
