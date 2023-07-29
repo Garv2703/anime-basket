@@ -2,8 +2,10 @@
 # All the ignored files or folder will be defined here.
 # Project : Anime Basket
 
-animebasket/__pycache__/
-animebasketshop/__pycache__/
-database/__pycache__/
-animebasketshop/migrations/__pycache__/
-database/migrations/__pycache__/
+# animebasket/__pycache__/
+# animebasketshop/__pycache__/
+# database/__pycache__/
+# animebasketshop/migrations/__pycache__/
+# database/migrations/__pycache__/
+
+**/__pycache__/
