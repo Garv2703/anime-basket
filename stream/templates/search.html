@@ -1,0 +1,46 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Search Results - Anime Basket
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section Begin -->
+    <!-- Add your hero section here if needed -->
+    <!-- Hero Section End -->
+
+    <!-- Search Results Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="trending__product">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title">
+                                    <h4>Search Results For '{{ search_item }}'</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for result in search_results %}                            
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                    <!-- Adjust the column classes based on the number of columns you want -->
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="{{ result.image }}">
+                                            <!-- Add any additional information or icons -->
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h5><a href="{{ anime_url }}/{{ result.id }}">{{ result.title }}</a></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Search Results Section End -->
+{% endblock %}
