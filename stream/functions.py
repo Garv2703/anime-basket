@@ -9,8 +9,8 @@ class Functions():
 		return(data)
 
 	def get_popular_anime():
-		url = "http://localhost:3000/anime/gogoanime/top-airing"
-		response = requests.get(url, params={"page": 2})
+		url = "http://localhost:3000/anime/gogoanime/popular"
+		response = requests.get(url, params={"page": 1})
 		data = response.json()
 		 
 		return(data)

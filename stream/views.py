@@ -120,8 +120,10 @@ def anime_watch(request, animeId, episodeId=None):
     return HttpResponse(template.render(context, request))
 
 def search(request):
-    query = request.GET.get('title')
-    print(query)
+    query = request.GET.get('title', '')
+    if not query:
+        return redirect(request.META['HTTP_REFERER'])
+
     search_results = Functions.get_search_results(query)
 
     template = loader.get_template('search.html')
