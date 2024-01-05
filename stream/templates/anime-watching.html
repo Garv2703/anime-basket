@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Anime Watch
+  {{ anime.title }} - Episode {{ episodeNum }}
 {% endblock %}
 
 {% block content %}
@@ -35,12 +35,21 @@
                             <track kind="captions" label="English captions" src="#" srclang="en" default />
                         </video>
                     </div>
+                    <!-- <div class="anime__details__episodes">
+                        <div class="section-title">
+                            <h5>Servers</h5>
+                        </div>
+                        {% for server in servers %}
+                            <a href="{{ anime_watch_url }}/{{ animeId }}/{{ episode.id }}" class="{% if episodeId == episode.id %}active{% endif %}" id="{{ episode.id }}">Ep {{ episode.number }}</a>
+                            <a href="{{server.url}}" id="{{ episode.id }}">{{ server.name }}</a>
+                        {% endfor %}
+                    </div> -->
                     <div class="anime__details__episodes">
                         <div class="section-title">
                             <h5>Episodes</h5>
                         </div>
                         {% for episode in anime.episodes %}
-                            <a href="{{anime_watch_url}}/{{animeId}}/{{episode.id}}" id="{{episode.episodeId}}">Ep {{ episode.number }}</a>
+                            <a href="{{ anime_watch_url }}/{{ animeId }}/{{ episode.id }}" class="{% if episodeId == episode.id %}active{% endif %}" id="{{ episode.id }}">Ep {{ episode.number }}</a>
                         {% endfor %}
                     </div>
                 </div>

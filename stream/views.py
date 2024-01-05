@@ -106,6 +106,9 @@ def anime_watch(request, animeId, episodeId=None):
 
     anime_details = Functions.get_anime_details(animeId)
     episode = Functions.get_anime_episode(episodeId)
+    servers = Functions.get_available_servers(episodeId)
+
+    epNum = episodeId.split('-')
 
     context = {
         'static_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.STATIC_URL,
@@ -116,6 +119,8 @@ def anime_watch(request, animeId, episodeId=None):
         'animeId': animeId,
         'episodeId': episodeId,
         'episode': episode,
+        'episodeNum': epNum[-1],
+        'servers': servers,
     }
     return HttpResponse(template.render(context, request))
 

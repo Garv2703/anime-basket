@@ -46,3 +46,10 @@ class Functions():
 		data = response.json()
 		 
 		return(data)
+
+	def get_available_servers(episodeId):
+		url = settings.API_URL + 'servers/' + episodeId
+		response = requests.get(url)
+		data = response.json()
+		 
+		return(data)

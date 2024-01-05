@@ -1288,6 +1288,18 @@ ol {
 	background: #ffffff;
 }
 
+.anime__details__episodes .active {
+	color: red;
+	background: #ffffff;
+	font-weight: bold;
+}
+
+.anime__details__episodes a.active:hover {
+	color: red;
+	background: #ffffff;
+	font-weight: bold;
+}
+
 .video-js {
 	height: 450px !important;
 	width: 100% !important;
