@@ -50,6 +50,13 @@
         });
     });
 
+    $('#search-input').on('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default Enter key behavior
+            $('#search-form').off('submit').submit(); // Unbind submit event and submit the form manually
+        }
+    });
+
     /*------------------
 		Navigation
 	--------------------*/
