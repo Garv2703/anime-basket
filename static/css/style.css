@@ -1924,6 +1924,12 @@ ol {
 	height: 450px;
 }
 
+.login__form h2 {
+	font-size: 28px;
+	color: #e53637;
+	margin-bottom: 20px;
+}
+
 .signup .login__form h5 {
 	font-size: 15px;
 	color: #ffffff;

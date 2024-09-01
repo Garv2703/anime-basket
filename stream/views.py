@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -10,35 +11,6 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    if request.method == 'POST':
-        referer = request.META['HTTP_REFERER'].split('/')
-        if referer[-2] == 'login':
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                email = form.cleaned_data['email']
-                password = form.cleaned_data['password']
-                user = authenticate(request, username=email, password=password)
-                if user is not None:
-                    login(request, user)
-                else:
-                    print('hello')
-            else:
-                print(form.errors)
-
-        else:
-            form = SignupForm(request.POST)
-            if form.is_valid():
-                email = form.cleaned_data['email']
-                username = email.split('@')
-                username = username[0]
-                first_name = form.cleaned_data['first_name']
-                last_name = form.cleaned_data['last_name']
-                name = first_name + ' ' + last_name
-                password = form.cleaned_data['password']
-                new_user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
-            else:
-                print(form.errors)
-
     anime = Functions.get_anime()
     recent_anime = Functions.get_recent_anime()
     popular_anime = Functions.get_popular_anime()
@@ -58,6 +30,21 @@ def home(request):
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
+    
+    form = LoginForm(request.POST)
+    error = ''
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
+        else:
+            error = 'Invalid Email or Password!'
+        
+    else:
+        print(form.errors)
 
     form = LoginForm()
     template = loader.get_template('login.html')
@@ -66,14 +53,38 @@ def login_view(request):
         'login_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.LOGIN_URL,
         'base_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'],
         'form': form,
+        'error': error,
     }
     return HttpResponse(template.render(context, request))
 
 def signup(request):
     if request.user.is_authenticated:
         return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
+    
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            if User.objects.filter(email=email).exists():
+                raise ValidationError(("Email already exists!"), code="invalid")
+            
+            username = email.split('@')
+            username = username[0]
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            # name = first_name + ' ' + last_name
+            password = form.cleaned_data['password']
+            new_user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
+            if new_user is not None:
+                login(request, new_user)
+                return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
+            else:
+                print('hello')
+        else:
+            print(form.errors)
+    else:
+        form = SignupForm()
 
-    form = SignupForm()
     template = loader.get_template('signup.html')
     context = {
         'static_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.STATIC_URL,
