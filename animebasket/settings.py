@@ -1,19 +1,21 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT = BASE_DIR / 'static'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 BASE_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = 'home'
-# LOGOUT_REDIRECT_URL = 'login'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 ANIME_URL = '/anime-details'
 ANIME_WATCH_URL = '/watch'
-API_URL = 'https://animenasket-api.vercel.app/anime/gogoanime/'
+API_URL = 'https://animebasket-api.vercel.app/anime/gogoanime/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -22,9 +24,9 @@ API_URL = 'https://animenasket-api.vercel.app/anime/gogoanime/'
 SECRET_KEY = 'django-insecure-00z*=ra+ku-^qw=*^5ser^h5+%sh0yb8&*^p3eou)tntz4f)oz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.57']
+ALLOWED_HOSTS = ['*']
 
 # SECURE_SSL_REDIRECT = True
 
@@ -82,6 +84,14 @@ WSGI_APPLICATION = 'animebasket.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres.jbpvcflmnesymbqnzxep',
+        'PASSWORD': 'Garv@sahu@2703',
+        'HOST': 'aws-0-ap-south-1.pooler.supabase.com',
+        'PORT': '6543',
+    },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
