@@ -1,7 +1,10 @@
-# build_files.sh
-python -m ensurepip
+#!/bin/bash
+
+# Install dependencies
 pip install -r requirements.txt
 
-# make migrations
-python3.12 manage.py migrate 
-python3.12 manage.py collectstatic
+# Run database migrations
+python manage.py migrate
+
+# Collect static files (if using static files)
+python manage.py collectstatic --noinput
