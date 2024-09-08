@@ -6,3 +6,4 @@ psycopg2-binary==2.9.9
 urllib3==2.2.2
 whitenoise==6.7.0
 social-auth-app-django==5.4.2
+djangorestframework==3.15.2
