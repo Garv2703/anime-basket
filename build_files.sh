@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# Add Python to the path
+export PATH="/usr/local/bin:$PATH"
+
 # Install dependencies
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 
-# Run database migrations
-python manage.py migrate
+# Apply migrations
+python3 manage.py migrate
 
-# Collect static files (if using static files)
-python manage.py collectstatic --noinput
+# Collect static files
+python3 manage.py collectstatic --noinput
