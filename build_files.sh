@@ -1,4 +1,5 @@
 # build_files.sh
+python -m ensurepip
 pip install -r requirements.txt
 
 # make migrations
