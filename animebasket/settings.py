@@ -92,10 +92,10 @@ DATABASES = {
         'HOST': 'aws-0-ap-south-1.pooler.supabase.com',
         'PORT': '6543',
     },
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 
