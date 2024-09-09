@@ -1,6 +1,6 @@
 from django.forms import ValidationError
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.http import HttpResponse
 from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
