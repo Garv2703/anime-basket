@@ -70,7 +70,7 @@
                         </div>
                         <div class="row">
                             {% for cell in anime %}                            
-                                <div class="col-lg-4 col-md-6 col-sm-6" data-url="{{anime_url}}/{{cell.id}}">
+                                <div class="col-lg-4 col-md-6 col-sm-6 animeBox" data-url="{{anime_url}}/{{cell.id}}">
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg" data-setbg="{{ cell.image }}">
                                             <!-- <div class="ep">Latest: {{ cell.latestEp }}</div> -->
@@ -107,7 +107,7 @@
                         <div class="row">
                             {% for cell in popular_anime %}
                                 {% if cell.title %}
-                                    <div class="col-lg-4 col-md-6 col-sm-6" data-url="{{anime_url}}/{{cell.id}}>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 animeBox" data-url="{{anime_url}}/{{cell.id}}>
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg" data-setbg="{{ cell.image }}">
                                                 <!-- <div class="ep">Latest: {{ cell.latestEp }}</div> -->
@@ -143,7 +143,7 @@
                         </div>
                         <div class="row">
                             {% for cell in recent_anime %}                            
-                                <div class="col-lg-4 col-md-6 col-sm-6" data-url="{{anime_url}}/{{cell.id}}>
+                                <div class="col-lg-4 col-md-6 col-sm-6 animeBox" data-url="{{anime_url}}/{{cell.id}}>
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="{{ cell.image }}">
                                         <div class="ep">Latest: Episode {{ cell.episodeNumber }}</div>
