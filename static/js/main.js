@@ -57,6 +57,11 @@
         }
     });
 
+    $('.animeBox').on('click', function() {
+	var animeUrl = $(this).data('url');
+	window.location.href = animeUrl;
+    });
+
     /*------------------
 		Navigation
 	--------------------*/
