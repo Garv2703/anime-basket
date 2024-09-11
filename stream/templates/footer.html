@@ -36,6 +36,7 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
         <form action="{{base_url}}/search" class="search-model-form" method="get" id="search-form">
+            {% csrf_token %}
             <input type="text" name="title" id="search-input" placeholder="Search here.....">
             <button type="submit" style="font-size:30px; background: inherit; padding: 5px; border: none; color: #999; border-bottom: 2px solid #333;" class="search-submit-btn"><i class="fa fa-search"></i></button>
         </form>
