@@ -31,20 +31,20 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
     
-    form = LoginForm(request.POST)
-    error = ''
-    if form.is_valid():
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
-        else:
-            error = 'Invalid Email or Password!'
-        
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        error = ''
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
+            else:
+                error = 'Invalid Email or Password!'        
     else:
-        print(form.errors)
+        form = LoginForm()
 
     form = LoginForm()
     template = loader.get_template('login.html')
