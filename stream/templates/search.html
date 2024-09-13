@@ -23,8 +23,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            {% for result in search_results %}                            
-                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            {% for result in search_results %}
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-url="{{anime_url}}/{{cell.id}}">
                                     <!-- Adjust the column classes based on the number of columns you want -->
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg" data-setbg="{{ result.image }}">
