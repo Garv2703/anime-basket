@@ -31,9 +31,9 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
     
+    error = ''
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        error = ''
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
