@@ -16,6 +16,7 @@ MEDIA_URL = '/media/'
 ANIME_URL = '/anime-details'
 ANIME_WATCH_URL = '/watch'
 API_URL = 'https://animebasket-api.vercel.app/anime/gogoanime/'
+BASE_URL = 'https://animebasket.up.railway.app/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

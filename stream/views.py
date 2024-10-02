@@ -17,10 +17,10 @@ def home(request):
 
     template = loader.get_template('home.html')
     context = {
-        'static_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.STATIC_URL,
-        'login_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.LOGIN_URL,
-        'anime_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.ANIME_URL,
-        'base_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'],
+        'static_url': settings.BASE_URL + settings.STATIC_URL,
+        'login_url': settings.BASE_URL + settings.LOGIN_URL,
+        'anime_url': settings.BASE_URL + settings.ANIME_URL,
+        'base_url': settings.BASE_URL,
         'anime': anime['results'],
         'recent_anime': recent_anime['results'],
         'popular_anime': popular_anime['results'],
