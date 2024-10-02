@@ -326,6 +326,27 @@ ol {
   Header
 -----------------------*/
 
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #dc3545;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	cursor: pointer;
+}
+
 .header {
 	background: #070720;
 }
@@ -2072,7 +2093,7 @@ ol {
 	}
 	.header__right {
 		position: absolute;
-		right: 120px;
+		right: 20px;
 		top: -42px;
 		padding: 0;
 	}
@@ -2177,7 +2198,7 @@ ol {
 	}
 	.header__right {
 		position: absolute;
-		right: 120px;
+		right: 20px;
 		top: -42px;
 		padding: 0;
 	}
