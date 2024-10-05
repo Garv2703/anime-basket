@@ -53,3 +53,19 @@ class Functions():
 		data = response.json()
 		
 		return(data)
+	
+	def get_hero_content():
+		anime_ids = ['one-piece', 'naruto', 'kimetsu-no-yaiba']
+		url = settings.API_URL + 'info/'
+
+		response = []
+
+		for i in range(len(anime_ids)):
+			info_url = url + anime_ids[i]
+			data = requests.get(info_url)
+			response.append(data.json())
+
+		print(*response, sep='\n')
+
+		return response
+		

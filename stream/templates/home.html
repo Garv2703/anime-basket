@@ -9,7 +9,21 @@
     <section class="hero">
         <div class="container">
             <div class="hero__slider owl-carousel">
-                <div class="hero__items set-bg" data-setbg="{{static_url}}images/hero/hero-1.jpg">
+                {% for cell in hero_anime %}
+                    <div class="hero__items set-bg" data-setbg="{{cell.image}}">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="hero__text">
+                                    <div class="label">{{cell.genres.0}}</div>
+                                    <h2>{{cell.title}}</h2>
+                                    <p>{{cell.description|truncatewords:'10'}}</p>
+                                    <a href="{{anime_watch_url}}/{{cell.id}}"><span>Watch Now</span> <i class="fa fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% comment %} <div class="hero__items set-bg" data-setbg="{{static_url}}images/hero/hero-1.jpg">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="hero__text">
@@ -44,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </section>
