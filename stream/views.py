@@ -14,6 +14,7 @@ def home(request):
     anime = Functions.get_anime()
     recent_anime = Functions.get_recent_anime()
     popular_anime = Functions.get_popular_anime()
+    heroAnime = Functions.get_hero_content()
 
     template = loader.get_template('home.html')
     context = {
@@ -21,9 +22,11 @@ def home(request):
         'login_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.LOGIN_URL,
         'anime_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.ANIME_URL,
         'base_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'],
+        'anime_watch_url': 'https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.ANIME_WATCH_URL,
         'anime': anime['results'],
         'recent_anime': recent_anime['results'],
         'popular_anime': popular_anime['results'],
+        'hero_anime': heroAnime,
     }
     return HttpResponse(template.render(context, request))
 
