@@ -24,7 +24,7 @@
                         </div>
                         <div class="row">
                             {% for result in search_results %}
-                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-url="{{ anime_url }}/{{ result.id }}">
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 animeBox" data-url="{{ anime_url }}/{{ result.id }}">
                                     <!-- Adjust the column classes based on the number of columns you want -->
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg" data-setbg="{{ result.image }}">

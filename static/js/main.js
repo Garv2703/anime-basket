@@ -42,6 +42,7 @@
     // Search model
     $('.search-switch').on('click', function () {
         $('.search-model').fadeIn(400);
+        $('#search-input').focus();
     });
 
     $('.search-close-switch').on('click', function () {
