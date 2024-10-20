@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
+from .models import Reviews
 
 # Create a custom UserAdmin class
 class CustomUserAdmin(BaseUserAdmin):
@@ -28,8 +29,12 @@ class CustomUserAdmin(BaseUserAdmin):
     ordering = ('username',)
     filter_horizontal = ('groups', 'user_permissions')
 
+class ReviewAdmin(admin.ModelAdmin):
+  list_display = ("id", "uid", "name", "comment", "episode_id", "created_at")
+
 # Unregister the default UserAdmin
 admin.site.unregister(User)
 
 # Register the custom UserAdmin
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Reviews, ReviewAdmin)

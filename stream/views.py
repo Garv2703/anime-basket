@@ -1,12 +1,13 @@
 from django.forms import ValidationError
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from .forms import SignupForm, LoginForm
 from .functions import Functions
+from .models import Reviews
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -79,10 +80,8 @@ def signup(request):
             password = form.cleaned_data['password']
             new_user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
             if new_user is not None:
-                login(request, new_user)
+                login(request, new_user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('https://' if request.is_secure() else 'http://' + request.META['HTTP_HOST'] + settings.BASE_URL)
-            else:
-                print('hello')
         else:
             print(form.errors)
     else:
@@ -121,6 +120,7 @@ def anime_watch(request, animeId, episodeId=None):
     anime_details = Functions.get_anime_details(animeId)
     episode = Functions.get_anime_episode(episodeId)
     servers = Functions.get_available_servers(episodeId)
+    reviews = Functions.get_episode_comments(episodeId)
 
     epNum = episodeId.split('-')
 
@@ -135,6 +135,7 @@ def anime_watch(request, animeId, episodeId=None):
         'episode': episode,
         'episodeNum': epNum[-1],
         'servers': servers,
+        'reviews': reviews,
     }
     return HttpResponse(template.render(context, request))
 
@@ -155,6 +156,16 @@ def search(request):
         'search_item': query,
     }
     return HttpResponse(template.render(context, request))
+
+def add_comment(request):
+    if request.method == 'POST':
+        comment = request.POST.get('comment')
+        name = request.user.get_full_name()
+        episodeId = request.POST.get('episode_id')
+        review = Reviews(uid=request.user.id, name=name,comment=comment, episode_id=episodeId)
+        review.save()
+
+    return JsonResponse({'name': name})
 
 @login_required
 def logout_view(request):
