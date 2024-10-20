@@ -10,4 +10,5 @@ urlpatterns = [
     path('watch/<str:animeId>/', views.anime_watch, name='anime-watch'),
     path('watch/<str:animeId>/<str:episodeId>', views.anime_watch, name='anime-watch'),
     path('search/', views.search, name='search'),
+    path('addcomment', views.add_comment, name='addComment'),
 ]

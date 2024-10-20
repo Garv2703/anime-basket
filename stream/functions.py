@@ -1,5 +1,6 @@
-import requests, json
+import requests
 from django.conf import settings
+from .models import Reviews
 
 class Functions():
 	def get_anime():
@@ -65,7 +66,8 @@ class Functions():
 			data = requests.get(info_url)
 			response.append(data.json())
 
-		print(*response, sep='\n')
-
 		return response
-		
+	
+	def get_episode_comments(episode_id):
+		reviews = Reviews.objects.filter(episode_id=episode_id).values()
+		return reviews

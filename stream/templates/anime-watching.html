@@ -30,9 +30,13 @@
                 <div class="col-lg-12">
                     <div class="anime__video__player">
                         <video id="player" class="video-js vjs-default-skin" playsinline controls data-poster="{{static_url}}videos/anime-watch.jpg" onended="episodeEnded()">
-                            <source src="{{episode.sources.3.url}}" type="application/x-mpegURL" />
+                            {% if 'server' in request.GET %}
+                                <source src="{{request.GET.server_url}}" class="source" type="application/x-mpegURL" />
+                            {% else %}
+                                <source src="{{episode.sources.3.url}}" class="source" type="application/x-mpegURL" />
+                            {% endif %}
                             <!-- Captions are optional -->
-                            <track kind="captions" label="English captions" src="#" srclang="en" default />
+                            <track kind="captions" label="English Captions" src="#" srclang="en" default />
                         </video>
                     </div>
                     <div class="anime__details__episodes">
@@ -40,7 +44,7 @@
                             <h5>Servers</h5>
                         </div>
                         {% for server in servers %}
-                            <a href="{{server.url}}">{{ server.name }}</a>
+                            <a href="{{anime_watch_url}}/{{animeId}}/{{episodeId}}?server={{server.name|lower}}&server_url={{server.url}}" class="server {% if request.GET.server == server.name|lower %}active{% endif %}" data-url="{{ server.url }}">{{ server.name }}</a>
                         {% endfor %}
                     </div>
                     <div class="anime__details__episodes">
@@ -59,71 +63,32 @@
                         <div class="section-title">
                             <h5>Reviews</h5>
                         </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="{{static_url}}images/anime/review-1.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                "demons" LOL</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="{{static_url}}images/anime/review-2.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                <p>Finally it came out ages ago</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="{{static_url}}images/anime/review-3.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                <p>Where is the episode 15 ? Slow update! Tch</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="{{static_url}}images/anime/review-4.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Chris Curry - <span>1 Hour ago</span></h6>
-                                <p>whachikan Just noticed that someone categorized this as belonging to the genre
-                                "demons" LOL</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="{{static_url}}images/anime/review-5.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Lewis Mann - <span>5 Hour ago</span></h6>
-                                <p>Finally it came out ages ago</p>
-                            </div>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="{{static_url}}images/anime/review-6.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <h6>Louis Tyler - <span>20 Hour ago</span></h6>
-                                <p>Where is the episode 15 ? Slow update! Tch</p>
-                            </div>
+                        <div class="reviews">
+                            {% if reviews %}
+                                {% for review in reviews %}
+                                    <div class="anime__review__item" data-id="{{review.id}}">
+                                        <div class="anime__review__item__pic">
+                                            <img src="{{static_url}}images/comment/comment_icon.jpg" alt="{{review.name}}">
+                                        </div>
+                                        <div class="anime__review__item__text">
+                                            <h6>{{review.name}} - <span>{{review.created_at|timesince}} ago</span></h6>
+                                            <p>{{review.comment}}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>No comments yet. Be the first to review!</p>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="anime__details__form">
                         <div class="section-title">
                             <h5>Your Comment</h5>
                         </div>
-                        <form action="#">
-                            <textarea placeholder="Your Comment"></textarea>
-                            <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
-                        </form>
+                        {% comment %} <form action="#" method="POST"> {% endcomment %}
+                            <textarea placeholder="Your Comment" id="commentBox"></textarea>
+                            <button type="submit" id="commentBtn" onclick='addComment()'><i class="fa fa-location-arrow"></i> Review</button>
+                        {% comment %} </form> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -136,6 +101,28 @@
             currentUrl = window.location.href;
             newUrl = currentUrl.substring(0, currentUrl.length - 1)+'2';
             window.location.href = newUrl;
+        }
+
+        function addComment() {
+            let comment = $('#commentBox').val().trim();
+            if (comment !== '') {
+                $.ajax({
+                    url: "{% url 'addComment' %}",
+                    type: "POST",
+                    data: {
+                        'comment': comment,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'episode_id': '{{episodeId}}'
+                    },
+                    success: function(response) {
+                        $('#commentBox').val('');
+                        $('.reviews').append('<div class="anime__review__item"><div class="anime__review__item__pic"><img src="{{static_url}}images/comment/comment_icon.jpg" alt=""></div><div class="anime__review__item__text"><h6>'+ response.name +' - <span>1 Hour ago</span></h6><p>'+ comment +'</p></div></div>')
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+                });
+            }
         }
     </script>
 
