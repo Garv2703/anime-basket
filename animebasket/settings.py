@@ -161,3 +161,13 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 # Facebook
 SOCIAL_AUTH_FACEBOOK_KEY = '752527966880413'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'e3bbb7f36442d348fffa799ff2e3c2ba'
+
+# Set session cookie age to a desired duration (in seconds)
+SESSION_COOKIE_AGE = 86400  # 24 hours
+
+# Set the session to use a permanent cookie
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# Make sure to enable cookies for your session
+SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Helps mitigate XSS attacks
