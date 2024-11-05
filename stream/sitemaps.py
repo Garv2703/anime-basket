@@ -4,4 +4,4 @@ class StaticViewSitemap(Sitemap):
     def items(self):
         return ['home', 'login', 'anime-details', 'anime-watch', 'search']
     def location(self, item):
-        return reverse(item)
+        return reverse(f'stream:{item}')
