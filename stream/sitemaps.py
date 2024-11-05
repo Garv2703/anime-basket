@@ -2,6 +2,6 @@ from django.contrib.sitemaps import Sitemap
 from django.shortcuts import reverse
 class StaticViewSitemap(Sitemap):
     def items(self):
-        return ['home', 'login', 'signup', 'logout', 'anime-details', 'anime-watch', 'search']
+        return ['home', 'login', 'anime-details', 'anime-watch', 'search']
     def location(self, item):
         return reverse(item)
