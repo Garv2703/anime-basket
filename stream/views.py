@@ -141,8 +141,10 @@ def anime_watch(request, animeId, episodeId=None):
 
 def search(request):
     query = request.GET.get('title', '')
+    # referrer = request.META['HTTP_REFERER']
+
     if not query:
-        return redirect(request.META['HTTP_REFERER'])
+        return redirect('https://animebasket.up.railway.app')
 
     search_results = Functions.get_search_results(query)
 
