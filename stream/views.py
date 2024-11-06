@@ -167,6 +167,10 @@ def add_comment(request):
 
     return JsonResponse({'name': name})
 
+def robots_txt(request):
+    template = loader.get_template('robots.txt')
+    return HttpResponse(template.render(request=request))
+
 @login_required
 def logout_view(request):
     logout(request)

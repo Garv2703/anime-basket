@@ -20,6 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from stream.sitemaps import StaticViewSitemap
+from django.views.generic.base import TemplateView
+from stream.views import robots_txt
 
 sitemaps = {
     'static': StaticViewSitemap
@@ -30,6 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', robots_txt, name='robots.txt'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
