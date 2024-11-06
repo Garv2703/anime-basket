@@ -24,7 +24,7 @@ API_URL = 'https://animebasket-api.vercel.app/anime/gogoanime/'
 SECRET_KEY = 'django-insecure-00z*=ra+ku-^qw=*^5ser^h5+%sh0yb8&*^p3eou)tntz4f)oz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.railway.app', 'animebasket.up.railway.app', '127.0.0.1', 'localhost']
 
