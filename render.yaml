@@ -4,7 +4,7 @@ services:
     name: animebasket
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn mysite.asgi:application"
+    startCommand: "python -m gunicorn animebasket.wsgi:application"
     envVars:
       - key: SECRET_KEY
         generateValue: true
