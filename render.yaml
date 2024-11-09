@@ -11,7 +11,7 @@ services:
     runtime: python
     buildCommand: "./build.sh"
     startCommand: "python -m gunicorn mysite.asgi:application"
-envVars:
+    envVars:
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
