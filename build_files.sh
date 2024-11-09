@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Exit on error
+set -o errexit
 
 # Add Python to the path
-export PATH="/usr/local/bin:$PATH"
+# export PATH="/usr/local/bin:$PATH"
 
-# Install dependencies
-python3 -m pip install -r requirements.txt
+# Modify this line as needed for your package manager (pip, poetry, etc.)
+pip install -r requirements.txt
 
-# Apply migrations
-python3 manage.py migrate
+# Convert static asset files
+python manage.py collectstatic --no-input
 
-# Collect static files
-python3 manage.py collectstatic --noinput
+# Apply any outstanding database migrations
+python manage.py migrate
