@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['.railway.app', 'animebasket.up.railway.app', '127.0.0.1', 'loc
 
 CSRF_TRUSTED_ORIGINS = [
     'https://animebasket.up.railway.app'
+    'https://animebasket.onrender.com'
 ]
 
 # SECURE_SSL_REDIRECT = True
